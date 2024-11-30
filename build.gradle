@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.0'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+ext {
+    mapperStruct = '1.5.5.Final'
+    csvVersion = '1.12.0'
+    hibernateValidatorVersion = '8.0.0.Final'
+    springDoc = '2.7.0'
+}
+
+group = 'br.paulocalderan'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDoc"
+    implementation "org.mapstruct:mapstruct:$mapperStruct"
+    implementation "org.apache.commons:commons-csv:$csvVersion"
+    implementation "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
+    implementation 'mysql:mysql-connector-java:8.0.33'
+    implementation 'org.flywaydb:flyway-mysql:11.0.0'
+    implementation 'org.flywaydb:flyway-core'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+
+    compileOnly 'org.projectlombok:lombok'
+
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapperStruct"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.testcontainers:junit-jupiter"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine"
+    testImplementation "io.rest-assured:rest-assured"
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

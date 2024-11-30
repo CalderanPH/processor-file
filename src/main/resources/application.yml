@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/processor
+    username: root
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: none
+  flyway:
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/processor
+    user: root
+    password: 1234
+    schemas: processor
+    locations: classpath:db/migration
+    baseline-on-migrate: 'true'
